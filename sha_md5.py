@@ -11,24 +11,37 @@ python sha512.py 512 "eclipse-cpp-neon-3-win32-x86_64.zip"
 
 import hashlib,sys
 
-with open(sys.argv[2],'rb') as f:
+def calculateHash(algorithm, path):
 
-    result = f.read()
+    with open(path,'rb') as f:
 
-if sys.argv[1] == '512':
-    info=hashlib.sha512(result).hexdigest()
-    print("SHA-512: ", info)
-elif sys.argv[1] == '256':
-    info=hashlib.sha256(result).hexdigest()
-    print("SHA-256: ", info)
-elif sys.argv[1] == '1':
-    info=hashlib.sha1(result).hexdigest()
-    print("SHA-1: ", info)
-elif sys.argv[1] == '5':
-    info=hashlib.md5(result).hexdigest()
-    print("md5info: ",info)
+        result = f.read()
 
+    if algorithm == '512':
+        info = hashlib.sha512(result).hexdigest()
+    elif algorithm == '256':
+        info = hashlib.sha256(result).hexdigest()
+    elif algorithm == '1':
+        info = hashlib.sha1(result).hexdigest()
+    elif algorithm == '5':
+        info = hashlib.md5(result).hexdigest()
+    else:
+        return -1
 
+    return info
+
+if __name__ == "__main__":
+
+    info = calculateHash(sys.argv[1], sys.argv[2])
+
+    if sys.argv[1] == '512':
+        print("SHA-512: ", info)
+    elif sys.argv[1] == '256':
+        print("SHA-256: ", info)
+    elif sys.argv[1] == '1':
+        print("SHA-1: ", info)
+    elif sys.argv[1] == '5':
+        print("md5: ", info)
 
 
 
