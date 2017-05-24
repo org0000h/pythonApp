@@ -11,16 +11,24 @@ python sha512.py 512 "eclipse-cpp-neon-3-win32-x86_64.zip"
 
 import hashlib,sys
 
-f=open(sys.argv[2],'rb').read()
+with open(sys.argv[2],'rb') as f:
+
+    result = f.read()
 
 if sys.argv[1] == '512':
-    info=hashlib.sha512(f).hexdigest()
+    info=hashlib.sha512(result).hexdigest()
+    print("SHA-512: ", info)
 elif sys.argv[1] == '256':
-    info=hashlib.sha256(f).hexdigest()
+    info=hashlib.sha256(result).hexdigest()
+    print("SHA-256: ", info)
 elif sys.argv[1] == '1':
-    info=hashlib.sha1(f).hexdigest()
+    info=hashlib.sha1(result).hexdigest()
+    print("SHA-1: ", info)
 elif sys.argv[1] == '5':
-    info=hashlib.md5(f).hexdigest()
+    info=hashlib.md5(result).hexdigest()
+    print("md5info: ",info)
 
-print(info)
+
+
+
 
